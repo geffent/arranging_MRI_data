@@ -1,4 +1,3 @@
-
 % for both conditions, process 3d .nii files
 process_3d_nii('patients')
 process_3d_nii('probands')
@@ -6,7 +5,7 @@ process_3d_nii('probands')
 
 function process_3d_nii(group)
 
-    dataPath = 'Z:\OCD_RS\';
+    dataPath = 'Z:\OCD_RS\original_data\';
 
     % combine different strings into the correct path
     groupPath = fullfile(dataPath, group);
@@ -50,8 +49,9 @@ function process_3d_nii(group)
                 fileNames{k} = fullfile(subjectFolder, niftiFolder, fileNames{k});
             end
             
-            outputFileName = fullfile('Z:\OCD_RS\conn_analysis3', subjectFolders{i}, ...
-                'functional', strcat('4d_', subjectFolders{i}, '.nii'));
+            outputFolder = fullfile('D:\conn_analysis_ocd_g', subjectFolders{i}, 'functional');
+            mkdir(outputFolder);
+            outputFileName = fullfile(outputFolder, strcat('4d_', subjectFolders{i}, '.nii'));
             spm_file_merge(fileNames, outputFileName, spm_type('int16'), 2.3)
             
         catch
